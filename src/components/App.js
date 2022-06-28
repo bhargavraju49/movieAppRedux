@@ -34,7 +34,7 @@ class App extends React.Component {
     const { list, favourites, isfav } = movies;
     return (
       <div className="App">
-        <Navbar></Navbar>
+        <Navbar dispatch={this.props.store.dispatch}></Navbar>
         <div className="main">
           <div className="tabs">
             <div
