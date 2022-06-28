@@ -1,4 +1,4 @@
-# Getting Started with Create React with Redux
+# A movie web app (SPA) created using React with Redux
 
 ### TechStack Used
 
