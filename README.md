@@ -14,7 +14,9 @@
 
 \*used redux for effective state management and to apply redux knowledge
 
-\*used Search functionality and fetched the movies from OMDB API
+\*Added favourite and unfavourite functionality and two tabs for home and favourite
+
+\*used OMDB API to fetch the movies to implement Search functionality
 
 \*Maintained proper folder structure
 
