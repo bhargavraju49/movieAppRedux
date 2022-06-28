@@ -1,11 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 
 import App from "./components/App";
 import rootReducer from "./reducers";
 
-const store = createStore(rootReducer);
+// adding middleware
+//function logger ( obj , next , action)
+//logger(obj)(next)(action)
+
+// const logger = function ({ dispatch, getState }) {
+//   return function (next) {
+//     return function (action) {
+//       //middle ware
+//       console.log("ACTION_TYPE", action.type);
+//       next(action);
+//     };
+//   };
+// };
+
+const logger =
+  ({ dispatch, getState }) =>
+  (next) =>
+  (action) => {
+    console.log("ACTION_TYPE", action.type);
+    next(action);
+  };
+
+const store = createStore(rootReducer, applyMiddleware(logger));
 // console.log("state", store.getState());
 // console.log("store", store);
 
