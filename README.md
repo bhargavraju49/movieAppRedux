@@ -1,4 +1,4 @@
-# A movie web app (SPA) created using React with Redux
+# A movies sreach web app (SPA) created using React with Redux
 
 ### TechStack Used
 
@@ -17,3 +17,5 @@
 \*used Search functionality and fetched the movies from OMDB API
 
 \*Maintained proper folder structure
+
+\*Deployed in git-hub and can check using the link ==> https://bhargavraju49.github.io/movieAppRedux/
