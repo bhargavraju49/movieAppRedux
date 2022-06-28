@@ -4,6 +4,7 @@ import MovieCard from "./MovieCard";
 import "../index.css";
 import { data } from "../data";
 import { addMovies, isFav } from "../actions";
+import { search } from "../reducers";
 class App extends React.Component {
   componentDidMount() {
     const { store } = this.props;
@@ -30,11 +31,11 @@ class App extends React.Component {
   render() {
     console.log("RENDER");
     console.log(this.props.store.getState());
-    const { movies } = this.props.store.getState();
+    const { movies, search } = this.props.store.getState();
     const { list, favourites, isfav } = movies;
     return (
       <div className="App">
-        <Navbar dispatch={this.props.store.dispatch}></Navbar>
+        <Navbar dispatch={this.props.store.dispatch} search={search}></Navbar>
         <div className="main">
           <div className="tabs">
             <div

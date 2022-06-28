@@ -4,6 +4,8 @@ import {
   ADD_FAVOURITES,
   REMOVE_FAVOURITES,
   SET_ISFAV,
+  ADD_SEARCH_RESULT,
+  ADD_MOVIE_TO_LIST,
 } from "../actions";
 
 const initialMovieState = {
@@ -46,6 +48,11 @@ export function movies(state = initialMovieState, action) {
         ...state,
         isfav: action.isfav,
       };
+    case ADD_MOVIE_TO_LIST:
+      return {
+        ...state,
+        list: [action.movie, ...state.list],
+      };
     default:
       return state;
   }
@@ -53,15 +60,29 @@ export function movies(state = initialMovieState, action) {
 
 const initialSearchState = {
   result: {},
+  showSearchResults: false,
 };
 export function search(state = initialSearchState, action) {
+  switch (action.type) {
+    case ADD_SEARCH_RESULT:
+      return {
+        ...state,
+        result: action.movie,
+        showSearchResults: true,
+      };
+    case ADD_MOVIE_TO_LIST: //while dispatching every reducer will be called
+      return {
+        ...state,
+        showSearchResults: false,
+      };
+  }
   return state;
 }
 
-const initialRootState = {
-  movies: initialMovieState,
-  search: initialSearchState,
-};
+// const initialRootState = {
+//   movies: initialMovieState,
+//   search: initialSearchState,
+// };
 
 // export default function rootReducer(state = initialRootState, action) {
 //   return {
