@@ -1,4 +1,4 @@
-import { act } from "react-dom/test-utils";
+import { combineReducers } from "@reduxjs/toolkit";
 import {
   ADD_MOVIES,
   ADD_FAVOURITES,
@@ -63,9 +63,14 @@ const initialRootState = {
   search: initialSearchState,
 };
 
-export default function rootReducer(state = initialRootState, action) {
-  return {
-    movies: movies(state.movies, action),
-    search: search(state.search, action),
-  };
-}
+// export default function rootReducer(state = initialRootState, action) {
+//   return {
+//     movies: movies(state.movies, action),
+//     search: search(state.search, action),
+//   };
+// }
+
+export default combineReducers({
+  movies,
+  search,
+});
