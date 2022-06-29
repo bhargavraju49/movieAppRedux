@@ -58,6 +58,7 @@ class App extends React.Component {
         </div>
         {!isfav ? (
           <div className="List">
+            {list.length === 0 && "No movies"}
             {list.map((movie, index) => (
               <MovieCard
                 movie={movie}
@@ -69,6 +70,7 @@ class App extends React.Component {
           </div>
         ) : (
           <div className="List">
+            {favourites.length === 0 && "No movies"}
             {favourites.map((movie, index) => (
               <MovieCard
                 movie={movie}
@@ -79,10 +81,10 @@ class App extends React.Component {
             ))}
           </div>
         )}
-        {!isFav && list.length === 0 && (
-          <div className="no-movies">NO movies</div>
-        )}
-        {isFav && favourites.length === 0 && <div>NO movies</div>}
+        {/* {!isFav && list.length === 0 && (
+          // <div className="no-movies">NO movies</div>
+        )} */}
+        {/* {isFav && favourites.length === 0 && <div>NO movies</div>} */}
       </div>
     );
   }
