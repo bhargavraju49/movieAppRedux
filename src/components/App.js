@@ -6,7 +6,7 @@ import { data } from "../data";
 import { addMovies, isFav } from "../actions";
 import { search } from "../reducers";
 import { StoreContext } from "../index";
-import { connect } from "../index";
+import { connect } from "react-redux";
 
 class App extends React.Component {
   componentDidMount() {
