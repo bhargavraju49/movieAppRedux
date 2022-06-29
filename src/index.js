@@ -1,9 +1,10 @@
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import App from "./components/App";
+import { data } from "./data";
 import rootReducer from "./reducers";
 
 // adding middleware
@@ -42,7 +43,54 @@ const logger =
 //     next(action);
 //   };
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
-// console.log("state", store.getState());
+console.log("state", store.getState());
+
+export const StoreContext = createContext();
+console.log("store context", StoreContext);
+
+class Provider extends React.Component {
+  render() {
+    const { store } = this.props;
+    return (
+      <StoreContext.Provider value={store}>
+        {this.props.children}
+      </StoreContext.Provider>
+    );
+  }
+}
+
+// const connectedAppComponent = connect(callback)(App);
+export function connect(callback) {
+  return function (Component) {
+    class ConnectedComponent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate());
+      }
+      componentWillUnmount() {
+        this.unsubscribe();
+      }
+      render() {
+        const { store } = this.props;
+        const state = store.getState();
+        const dataToBePassedAsProps = callback(state);
+        return (
+          <Component {...dataToBePassedAsProps} dispatch={store.dispatch} />
+        );
+      }
+    }
+    class ConnectedComponentWrapper extends React.Component {
+      render() {
+        return (
+          <StoreContext.Consumer>
+            {(store) => <ConnectedComponent store={store} />}
+          </StoreContext.Consumer>
+        );
+      }
+    }
+    return ConnectedComponentWrapper;
+  };
+}
 // console.log("store", store);
 
 // store.dispatch({
@@ -54,7 +102,7 @@ const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App store={store} />
-  </React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
