@@ -78,8 +78,6 @@ class App extends React.Component {
             ))}
           </div>
         )}
-        {/* {list.length === 0 && <div className="no-movies">NO movies</div>} */}
-        {/* {!isFav && favourites.length === 0 ? "" : <div>No movies</div>} */}
       </div>
     );
   }
