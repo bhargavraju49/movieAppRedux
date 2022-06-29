@@ -5,6 +5,7 @@ import "../index.css";
 import { data } from "../data";
 import { addMovies, isFav } from "../actions";
 import { search } from "../reducers";
+import { StoreContext } from "../index";
 class App extends React.Component {
   componentDidMount() {
     const { store } = this.props;
@@ -33,9 +34,10 @@ class App extends React.Component {
     console.log(this.props.store.getState());
     const { movies, search } = this.props.store.getState();
     const { list, favourites, isfav } = movies;
+
     return (
       <div className="App">
-        <Navbar dispatch={this.props.store.dispatch} search={search}></Navbar>
+        <Navbar search={search}></Navbar>
         <div className="main">
           <div className="tabs">
             <div
@@ -58,6 +60,7 @@ class App extends React.Component {
         </div>
         {!isfav ? (
           <div className="List">
+            {list.length === 0 && "No movies"}
             {list.map((movie, index) => (
               <MovieCard
                 movie={movie}
@@ -69,6 +72,7 @@ class App extends React.Component {
           </div>
         ) : (
           <div className="List">
+            {favourites.length === 0 && "No movies"}
             {favourites.map((movie, index) => (
               <MovieCard
                 movie={movie}
@@ -79,13 +83,21 @@ class App extends React.Component {
             ))}
           </div>
         )}
-        {!isFav && list.length === 0 && (
-          <div className="no-movies">NO movies</div>
-        )}
-        {isFav && favourites.length === 0 && <div>NO movies</div>}
+        {/* {list.length === 0 && <div className="no-movies">NO movies</div>} */}
+        {/* {!isFav && favourites.length === 0 ? "" : <div>No movies</div>} */}
       </div>
     );
   }
 }
 
-export default App;
+class AppWrapper extends React.Component {
+  render() {
+    return (
+      <StoreContext.Consumer>
+        {(store) => <App store={store} />}
+      </StoreContext.Consumer>
+    );
+  }
+}
+
+export default AppWrapper;
